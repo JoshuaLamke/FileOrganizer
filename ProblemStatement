@@ -1,0 +1,15 @@
+Problem Statement
+Who-This problem affects everyone looking to download files off of the internet.
+What-The problem is a loss of time due to putting each individual file in a certain directory. Also, the file could be lost if you do not specify a certain directory and just download the file.
+When-This issue occurs whenever a file is downloaded from your computer.
+Where-The problem occurs on every computer without a built-in file organizer.
+Why-If this problem were fixed there would be a lesser chance of lost files and downloading files would take less time because you do not need to specify a directory explicitly.
+We want a file organizer that watches specified directories 
+Challenges
+-Creating the GUI
+-Moving files from one directory to another
+-Finding the file extension
+-Having the program run in the background of your computer
+-Having the app start up when the operating system starts up
+-Pinning the GUI to the tray on the windows taskbar
+-Watching the directories for a file being downloaded there
