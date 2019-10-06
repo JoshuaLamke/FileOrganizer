@@ -8,8 +8,9 @@ We want a file organizer that watches specified directories
 Challenges
 -Creating the GUI
 -Moving files from one directory to another
--Finding the file extension
--Having the program run in the background of your computer
--Having the app start up when the operating system starts up
+-Finding the file extension of the downloaded file
+-Having the program run in the background of your computer as a daemon 
+-Having the app start up whenever the operating system starts up
 -Pinning the GUI to the tray on the windows taskbar
--Watching the directories for a file being downloaded there
+-Watching the directories for a file being downloaded there 
+-Notifying the user whenever a file is downloaded into one of the specified directories (set by the user beforehand) and lets the user know which directory it was placed into
