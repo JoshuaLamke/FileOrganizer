@@ -1,0 +1,35 @@
+Classes:
+
+GUI Package:
+---------------------------------------
+public class Window{
+private int length;
+private int width;
+public void setSize(int length,int width){
+}
+public void makeVisible(){
+}
+public void makeMoveable(){
+}
+public void makeCloseable(){
+}
+public void makeMaximizeable(){
+}
+public void makeMinimizable(){
+}
+}
+---------------------------------------
+public class Button{
+private int length;
+private int width;
+public void makeVisible(){
+}
+public void makeClickable(){
+}
+public void doSomethingWhenClicked(){
+}
+public boolean hasBeenClicked(){
+}
+}
+---------------------------------------
+
