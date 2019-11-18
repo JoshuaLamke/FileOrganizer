@@ -25,7 +25,7 @@ public class DirectoryWatcher{
         if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
             registerAll(dir);
-            System.out.println("Done.");
+            System.out.println("Done Scanning.");
         } else {
             register(dir);
         }
@@ -66,7 +66,7 @@ public class DirectoryWatcher{
         try {
           key = watcher.take(); //Retrieves and removes next watch key, waiting if none are yet present.
         }
-        catch (InterruptedException x) {//Means it was interrupted so it'll exit the method and return.
+        catch (InterruptedException x) {//Means it was interrupted so it'll exit the method.
           return;
         }
         Path dir = keys.get(key); //Gets the directory/path that the key was watching.
@@ -76,11 +76,12 @@ public class DirectoryWatcher{
         }
         for (WatchEvent<?> event: key.pollEvents()) {//key.pollEvents() returns a list of all the pending events in a watchkey. So if it's watching a path , then it will iterate through all the events in the watchkey. 
           WatchEvent.Kind kind = event.kind(); // TBD - provide example of how OVERFLOW event is handled
-          if (kind == OVERFLOW) {//Kind is the type of event (CREATE, DELETE, or MODIFY)
-          continue;
+          if (kind == OVERFLOW) {//Kind is the type of event (CREATE, DELETE, or MODIFY)... OVERFLOW means some files my have been lost. I'm honestly not sure how that could happen
+            System.out.println("Some events may have been lost or missed...");//This event shouldn't happen in our project... but just in case, the system will print out this message and notify the user.
+            continue;
           }
           // Context for directory entry event is the file name of entry
-          WatchEvent<Path> ev = cast(event);//It'll take the event from the watchkey in every iteration, and 
+          WatchEvent<Path> ev = cast(event);//It'll take the event from the watchkey in every iteration, and cast it onti an actual watchservice event, then 
           Path name = ev.context();//Will return the path between the directory that the watcher is watching and the specified event.
           Path child = dir.resolve(name);//Turns the name into a proper path.
  
@@ -89,13 +90,13 @@ public class DirectoryWatcher{
           // if directory is created, and watching recursively, then
           // register it and its sub-directories
           if (recursive && (kind == ENTRY_CREATE)) {//If the directory has subdirectories (is recursive) and the event is CREATE...
-            try {
+            try {//CHECK FILE EXTENSION IN ORDER TO BE ABLE TO MOVE IT
               if (Files.isDirectory(child, NOFOLLOW_LINKS)) { //... and if it's a valid directory...
                 registerAll(child);//It will register it and all of it's subdirectories.
               }
-            } 
+            }
             catch (IOException x) {
-              // ignore 
+              // ignore
             }
           }
         }
