@@ -1,0 +1,23 @@
+Team Leader:Joshua Lamke
+Members:Gerardo, William
+The File Organizer will work by popping up a two windows upon starting the application. One of these windows will allow the user to input
+directories that they want our application to watch with a maximum of 10 directories to be registered at a time. The other window will 
+allow the user to specify which directories they want certain file types to be moved to. After these specifications are made, the user can
+minimize the windows and allow the application to run in the background. Whenever the user downloads a file into one of the directories 
+being watched, the type of file will be identified and moved to the appropriate directory. I am attempting to get my GUI to interact with a
+config file in the form of a CSV text file in order to save the users settings if the application were to be closed. In that case, when 
+the application starts again. The config file will be read and the directories inside will be set up to be watched appropriately. 
+Things We Have Done:
+-Partial completion of the window where user can specify which directories they want to be watched
+-Config file
+-Partial completion of the config file reader
+-Partial completion of the window where user can specify which file tyes go where
+-Directory Validator
+-DirectoryNotFoundException
+-DirectoryWatcher(watches the specified directories and queues an event if something is created in it). About 85% finished, but
+still need to look at the file extension after it's notified in order to know where to nove it.
+Things We Still Need:
+-File mover that will move a file from one directory to another
+-Give the two windows the functionality to edit the config file to allow changes made by the user to be saved
+-completion of the directory watcher
+-File extension identifier
