@@ -4,7 +4,7 @@ What-The problem is a loss of time due to putting each individual file in a cert
 When-This issue occurs whenever a file is downloaded from your computer.
 Where-The problem occurs on every computer without a built-in file organizer.
 Why-If this problem were fixed there would be a lesser chance of lost files and downloading files would take less time because you do not need to specify a directory explicitly.
-We want to create a file organizer that watches specified directories 
+We want to create a file organizer that watches specified directories and moves them based off of the file extension
 Challenges
 -Creating the GUI
 -Moving files from one directory to another
