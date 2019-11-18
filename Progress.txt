@@ -1,5 +1,5 @@
 Team Leader:Joshua Lamke
-Members:Gerardo, William
+Members:Gerardo Abaunza, William Hiranpat
 The File Organizer will work by popping up a two windows upon starting the application. One of these windows will allow the user to input
 directories that they want our application to watch with a maximum of 10 directories to be registered at a time. The other window will 
 allow the user to specify which directories they want certain file types to be moved to. After these specifications are made, the user can
