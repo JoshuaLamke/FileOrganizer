@@ -95,7 +95,7 @@ public class DirectoryWatcher{
               }
             } 
             catch (IOException x) {
-              // ignore to keep sample readbale
+              // ignore 
             }
           }
         }
