@@ -4,13 +4,10 @@ What-The problem is a loss of time due to putting each individual file in a cert
 When-This issue occurs whenever a file is downloaded from your computer.
 Where-The problem occurs on every computer without a built-in file organizer.
 Why-If this problem were fixed there would be a lesser chance of lost files and downloading files would take less time because you do not need to specify a directory explicitly.
-We want a file organizer that watches specified directories 
+We want to create a file organizer that watches specified directories 
 Challenges
 -Creating the GUI
 -Moving files from one directory to another
 -Finding the file extension of the downloaded file
--Having the program run in the background of your computer as a daemon 
--Having the app start up whenever the operating system starts up
--Pinning the GUI to the tray on the windows taskbar
+-Having the GUI interact with the config file 
 -Watching the directories for a file being downloaded there 
--Notifying the user whenever a file is downloaded into one of the specified directories (set by the user beforehand) and lets the user know which directory it was placed into
