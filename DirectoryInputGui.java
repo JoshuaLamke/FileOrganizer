@@ -38,7 +38,7 @@ public class DirectoryInputGui {
 	private JTextField Directory10;
 	private EnterTextFieldHandler handler;
 	private JButton btnClickForHelp;
-	private JComboBox<String> RecursiveOrNotSelection;
+	private JComboBox RecursiveOrNotSelection;
 
 	/**
 	 * Launch the application.
@@ -49,6 +49,16 @@ public class DirectoryInputGui {
 				try {
 					DirectoryInputGui window = new DirectoryInputGui();
 					window.DirectoryWatcherFrame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ExtensionSettingsGui window = new ExtensionSettingsGui();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -195,7 +205,7 @@ public class DirectoryInputGui {
 		DirectoryWatcherFrame.getContentPane().add(btnClickForHelp);
 		
 		String[] recursive = new String[]{"Recursive?","Yes","No"};
-		RecursiveOrNotSelection = new JComboBox<String>(recursive);
+		RecursiveOrNotSelection = new JComboBox(recursive);
 		RecursiveOrNotSelection.setToolTipText("Recursive Search?");
 		RecursiveOrNotSelection.setBounds(156, 146, 100, 33);
 		DirectoryWatcherFrame.getContentPane().add(RecursiveOrNotSelection);
@@ -217,12 +227,12 @@ public class DirectoryInputGui {
 			try {
 				if(((String)RecursiveOrNotSelection.getSelectedItem()).equals("Recursive?") || ((String)RecursiveOrNotSelection.getSelectedItem()).equals("No")) {
 					wantsRecursive=false;
-					DirectoryValidator.validate(p,wantsRecursive);
 				}
 				else {
 					wantsRecursive=true;
-					DirectoryValidator.validate(p,wantsRecursive);
 				}
+				DirectoryValidator.validate(p);
+				new ConfigFileStreamer(p,wantsRecursive);
 				JOptionPane.showMessageDialog(null, "Directory Registered Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 			} 
 			catch(DirectoryNotFoundException e) {
