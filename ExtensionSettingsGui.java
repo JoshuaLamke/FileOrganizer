@@ -34,7 +34,7 @@ public class ExtensionSettingsGui {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+		      public void run() {
 				try {
 					ExtensionSettingsGui window = new ExtensionSettingsGui();
 					window.frame.setVisible(true);
