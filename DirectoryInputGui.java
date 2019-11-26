@@ -33,7 +33,7 @@ public class DirectoryInputGui {
 	private JTextField Directory5;
 	private JTextField Directory6;
 	private JTextField Directory7;
-	private JTextField Directory8;
+ 	private JTextField Directory8;
 	private JTextField Directory9;
 	private JTextField Directory10;
 	private EnterTextFieldHandler handler;
