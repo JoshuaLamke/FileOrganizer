@@ -1,4 +1,4 @@
-package file_organizer_gui;
+package file_organizer_gui; 
 
 import java.awt.Color;
 import java.awt.Font;
