@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import directory_watching.DirectoryRegisterer; 
+import directory_watching.DirectoryRegisterer;  
 
 public class ConfigFileReader {
 	Scanner inputStream;
