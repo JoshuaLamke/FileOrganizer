@@ -1,4 +1,4 @@
-# This is the configuration file for our file organizer
+# This is the configuration file for our file organizer 
 # The format will be in CSV format meaning that all inputs will be separated by a comma
 
 # ***Directories To Be Watched*** 
