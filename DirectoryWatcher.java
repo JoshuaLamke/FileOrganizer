@@ -27,7 +27,9 @@ public class DirectoryWatcher{
             registerAll(dir);
             System.out.println("Done Scanning.");
         } else {
+            System.out.format("Registering %s...\n", dir);
             register(dir);
+          System.out.println("Successfully registered.");
         }
         this.trace = true; // enable trace after initial registration, so we know there's already a watcher initiated and active.
     }
@@ -75,18 +77,18 @@ public class DirectoryWatcher{
           continue;
         }
         for (WatchEvent<?> event: key.pollEvents()) {//key.pollEvents() returns a list of all the pending events in a watchkey. So if it's watching a path , then it will iterate through all the events in the watchkey. 
-          WatchEvent.Kind kind = event.kind(); // TBD - provide example of how OVERFLOW event is handled
+          WatchEvent.Kind kind = event.kind(); //We will note the kind of event that the file is registered for.
           if (kind == OVERFLOW) {//Kind is the type of event (CREATE, DELETE, or MODIFY)... OVERFLOW means some files my have been lost. I'm honestly not sure how that could happen
             System.out.println("Some events may have been lost or missed...");//This event shouldn't happen in our project... but just in case, the system will print out this message and notify the user.
             continue;
           }
           // Context for directory entry event is the file name of entry
           WatchEvent<Path> ev = cast(event);//It'll take the event from the watchkey in every iteration, and cast it onti an actual watchservice event, then 
-          Path name = ev.context();//Will return the path between the directory that the watcher is watching and the specified event.
-          Path child = dir.resolve(name);//Turns the name into a proper path.
+          Path name = ev.context();//Will return the path of the directory that the watcher was watching, but it's not a PATH object so we have to cast it.
+          Path child = dir.resolve(name);//Turns the name into a proper path object by basically casting it with the resolve method.
  
           // print out event
-          System.out.format("%s: %s\n", event.kind().name(), child);
+          System.out.format("%s: %s\n", event.kind().name(), child);//SOMEWHERE HERE I WILL MAKE THE NOTIFICATION IF ELSE BRANCH.
           // if directory is created, and watching recursively, then
           // register it and its sub-directories
           if (recursive && (kind == ENTRY_CREATE)) {//If the directory has subdirectories (is recursive) and the event is CREATE...
@@ -110,9 +112,5 @@ public class DirectoryWatcher{
           }
         }
       }
-    }
-    
-    public static void main(String[] args) throws IOException{
-      
     }
 }
