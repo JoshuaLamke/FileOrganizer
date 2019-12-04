@@ -21,7 +21,7 @@ public class NewDirectoryChooser{
       return powerpointDirectory;
     }
     if else ((fileType.equals("ai")) || (fileType.equals("bmp")) || (fileType.equals("gif")) || (fileType.equals("ico")) || (fileType.equals("jpg")) || (fileType.equals("jpeg")) || (fileType.equals("png")) || (fileType.equals("ps")) || (fileType.equals("psd")) || (fileType.equals("svg")) || (fileType.equals("tif")) || (fileType.equals("tiff"))){
-      return powerpointDirectory;
+      return imageDirectory;
     }
     if else ((fileType.equals("doc")) || (fileType.equals("docx")) || (fileType.equals("odt")) || (fileType.equals("wks")) || (fileType.equals("wps")) || (fileType.equals("wpd"))){
       return wordDocDirectory;
