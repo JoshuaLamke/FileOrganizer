@@ -17,7 +17,7 @@ public class DirectoryWatcher{
         return (WatchEvent<T>)event;
     }
 
-    public DirectoryWatcher(Path dir, boolean recursive) throws IOException {//This is the constrcutor. This creates the watcher. The user specifies if he/she wants to walk the file tree and register everything to the watcher or not.
+    public DirectoryWatcher() throws IOException {//This is the constrcutor. This creates the watcher. The user specifies if he/she wants to walk the file tree and register everything to the watcher or not.
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();//IDK why I'm using a hashmap and how that's different from a regular map
         this.recursive = recursive;
@@ -34,7 +34,7 @@ public class DirectoryWatcher{
         this.trace = true; // enable trace after initial registration, so we know there's already a watcher initiated and active.
     }
     
-    private void register(Path dir) throws IOException {
+    public void register(Path dir) throws IOException {
         WatchKey key = dir.register(watcher, ENTRY_CREATE);//Only care if a file is created in the directory, not if it's moved or deleted.
         if (trace) {//If there's already a key in the keys map, then it will retrieve it. If not, it will simply create a new one with the respective path the user wants it to watch and put it into the "keys" map.
           Path prev = keys.get(key);
@@ -51,7 +51,7 @@ public class DirectoryWatcher{
         
     }
 
-    private void registerAll(final Path start) throws IOException {
+    public void registerAll(final Path start) throws IOException {
         // register directory and all of its sub-directories. This is the method we call when the user specifies that they want the watcher to walk the file tree and register the directory and ALL of its subdirectories.
         Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
             @Override
