@@ -22,7 +22,7 @@ public class DirectoryWatcher{
         this.keys = new HashMap<WatchKey,Path>();//IDK why I'm using a hashmap and how that's different from a regular map
         this.recursive = recursive;
  
-        if (recursive) {
+        /*if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
             registerAll(dir);
             System.out.println("Done Scanning.");
@@ -30,7 +30,7 @@ public class DirectoryWatcher{
             System.out.format("Registering %s...\n", dir);
             register(dir);
           System.out.println("Successfully registered.");
-        }
+        }*/
         this.trace = true; // enable trace after initial registration, so we know there's already a watcher initiated and active.
     }
     
@@ -48,6 +48,7 @@ public class DirectoryWatcher{
           }
         }
         keys.put(key, dir);//It will then put the key to the watcher along with the path it's watching into the "keys" map.
+        
     }
 
     private void registerAll(final Path start) throws IOException {
@@ -62,7 +63,7 @@ public class DirectoryWatcher{
         );
     }
     
-    void processEvents() {
+   public void processEvents() {
       for (;;) { // wait for key to be signalled, otherwise it'll just run forever. Kinda like a while loop.
         WatchKey key;
         try {
@@ -86,14 +87,23 @@ public class DirectoryWatcher{
           WatchEvent<Path> ev = cast(event);//It'll take the event from the watchkey in every iteration, and cast it onti an actual watchservice event, then 
           Path name = ev.context();//Will return the path of the directory that the watcher was watching, but it's not a PATH object so we have to cast it.
           Path child = dir.resolve(name);//Turns the name into a proper path object by basically casting it with the resolve method.
- 
+          if (kind == ENTRY_CREATE) {
+            String fileType = new ExtensionChecker(child).getExtension();
+            if ((fileType.equals("tmp")) || (fileType.equals("crdownload")) || (fileType.equals("partial"))){//Checks for Google chrome, Internet Explorer, and Microsoft Edge.
+              continue;
+            }
+            else{
+              System.out.format("File Type of %s is %s \n", child, fileType);
+            }
+          }
           // print out event
-          System.out.format("%s: %s\n", event.kind().name(), child);//SOMEWHERE HERE I WILL MAKE THE NOTIFICATION IF ELSE BRANCH.
+          System.out.format("%s: %s\n", event.kind().name(), child);
+          //FileMover mover = new FileMover(
           // if directory is created, and watching recursively, then
           // register it and its sub-directories
           if (recursive && (kind == ENTRY_CREATE)) {//If the directory has subdirectories (is recursive) and the event is CREATE...
-            try {//CHECK FILE EXTENSION IN ORDER TO BE ABLE TO MOVE IT
-              if (Files.isDirectory(child, NOFOLLOW_LINKS)) { //... and if it's a valid directory...
+            try {
+              if (Files.isDirectory(child, NOFOLLOW_LINKS)) { //... and the new file is a valid directory...
                 registerAll(child);//It will register it and all of it's subdirectories.
               }
             }
@@ -113,4 +123,24 @@ public class DirectoryWatcher{
         }
       }
     }
+    static void usage() {
+        System.err.println("usage: java WatchDir [-r] dir");
+        System.exit(-1);
+    }
+    public static void main(String[] args) throws IOException{
+       if (args.length == 0 || args.length > 2)
+            usage();
+        boolean recursive = false;
+        int dirArg = 0;
+        if (args[0].equals("-r")) {
+            if (args.length < 2)
+                usage();
+            recursive = true;
+            dirArg++;
+        }
+        Path dir = Paths.get(args[dirArg]);
+        DirectoryWatcher watcher1 = new DirectoryWatcher(dir, recursive);
+        watcher1.registerAll(dir);
+        watcher1.processEvents();
+   }
 }
