@@ -2,8 +2,9 @@ package file_organizer_gui;
 import java.nio.file.Path;
 
 public class ExtensionChecker {
+	private String extension;
 public ExtensionChecker(Path p){
-	String extension = extensionGetter(p);
+	extension = extensionGetter(p);
 	
 }
 private String extensionGetter(Path p) {
@@ -16,5 +17,8 @@ private String extensionGetter(Path p) {
 	else {
 		return null;
 	}
+}
+public String getExtension() {
+	return extension;
 }
 }
