@@ -8,7 +8,6 @@ import java.util.*;
 public class DirectoryWatcher{
     protected final WatchService watcher;
     protected final Map<WatchKey,Path> keys;
-    protected final boolean recursive;
     protected boolean trace = false;
     
     
@@ -17,20 +16,9 @@ public class DirectoryWatcher{
         return (WatchEvent<T>)event;
     }
 
-    public DirectoryWatcher() throws IOException {//This is the constrcutor. This creates the watcher. The user specifies if he/she wants to walk the file tree and register everything to the watcher or not.
+    public DirectoryWatcher() throws IOException {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();//IDK why I'm using a hashmap and how that's different from a regular map
-        this.recursive = recursive;
- 
-        /*if (recursive) {
-            System.out.format("Scanning %s ...\n", dir);
-            registerAll(dir);
-            System.out.println("Done Scanning.");
-        } else {
-            System.out.format("Registering %s...\n", dir);
-            register(dir);
-          System.out.println("Successfully registered.");
-        }*/
         this.trace = true; // enable trace after initial registration, so we know there's already a watcher initiated and active.
     }
     
@@ -84,11 +72,11 @@ public class DirectoryWatcher{
             continue;
           }
           // Context for directory entry event is the file name of entry
-          WatchEvent<Path> ev = cast(event);//It'll take the event from the watchkey in every iteration, and cast it onti an actual watchservice event, then 
+          WatchEvent<Path> ev = cast(event);//It'll take the event from the watchkey in every iteration, and cast it onto an actual watchservice event, then 
           Path name = ev.context();//Will return the path of the directory that the watcher was watching, but it's not a PATH object so we have to cast it.
           Path child = dir.resolve(name);//Turns the name into a proper path object by basically casting it with the resolve method.
+          String fileType = new ExtensionChecker(child).getExtension();//Gets the type of file
           if (kind == ENTRY_CREATE) {
-            String fileType = new ExtensionChecker(child).getExtension();
             if ((fileType.equals("tmp")) || (fileType.equals("crdownload")) || (fileType.equals("partial"))){//Checks for Google chrome, Internet Explorer, and Microsoft Edge.
               continue;
             }
@@ -98,10 +86,11 @@ public class DirectoryWatcher{
           }
           // print out event
           System.out.format("%s: %s\n", event.kind().name(), child);
-          //FileMover mover = new FileMover(
+          FileMover mover = new FileMover(child, fileType);
+          System.out.println("File successfully moved.");
           // if directory is created, and watching recursively, then
           // register it and its sub-directories
-          if (recursive && (kind == ENTRY_CREATE)) {//If the directory has subdirectories (is recursive) and the event is CREATE...
+          /*if (recursive && (kind == ENTRY_CREATE)) {//If the directory has subdirectories (is recursive) and the event is CREATE...
             try {
               if (Files.isDirectory(child, NOFOLLOW_LINKS)) { //... and the new file is a valid directory...
                 registerAll(child);//It will register it and all of it's subdirectories.
@@ -110,7 +99,7 @@ public class DirectoryWatcher{
             catch (IOException x) {
               // ignore
             }
-          }
+          }*/
         }
         // reset key and remove from set if directory no longer accessible
         boolean valid = key.reset(); //resets the key
@@ -123,24 +112,12 @@ public class DirectoryWatcher{
         }
       }
     }
-    static void usage() {
-        System.err.println("usage: java WatchDir [-r] dir");
-        System.exit(-1);
-    }
     public static void main(String[] args) throws IOException{
-       if (args.length == 0 || args.length > 2)
-            usage();
-        boolean recursive = false;
-        int dirArg = 0;
-        if (args[0].equals("-r")) {
-            if (args.length < 2)
-                usage();
-            recursive = true;
-            dirArg++;
-        }
-        Path dir = Paths.get(args[dirArg]);
-        DirectoryWatcher watcher1 = new DirectoryWatcher(dir, recursive);
-        watcher1.registerAll(dir);
+        Path dir = Paths.get("C:\\Users\\gerar\\Downloads");
+        DirectoryWatcher watcher1 = new DirectoryWatcher();
+        watcher1.register(dir);
+        Path path = Paths.get("C:\\Users\\gerar\\Desktop");
+        watcher1.register(path);
         watcher1.processEvents();
    }
 }
