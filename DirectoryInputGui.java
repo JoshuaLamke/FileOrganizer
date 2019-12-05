@@ -33,39 +33,17 @@ public class DirectoryInputGui {
 	private JTextField Directory5;
 	private JTextField Directory6;
 	private JTextField Directory7;
- 	private JTextField Directory8;
+	private JTextField Directory8;
 	private JTextField Directory9;
 	private JTextField Directory10;
 	private EnterTextFieldHandler handler;
 	private JButton btnClickForHelp;
 	private JComboBox RecursiveOrNotSelection;
+	private static ConfigFileReader initializer;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DirectoryInputGui window = new DirectoryInputGui();
-					window.DirectoryWatcherFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ExtensionSettingsGui window = new ExtensionSettingsGui();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public JFrame getFrame() {
+		return DirectoryWatcherFrame;
 	}
-
 	/**
 	 * Create the application.
 	 */
@@ -94,7 +72,7 @@ public class DirectoryInputGui {
 		directoryInstrctionsButton.setFont(new Font("Times New Roman", Font.BOLD, 13));
 		directoryInstrctionsButton.setBounds(12, 13, 396, 26);
 		DirectoryWatcherFrame.getContentPane().add(directoryInstrctionsButton);
-		/**
+		/*
 		 * instance of the EnterTestFieldHandler class. Used as an action listener that registers appropriate directories
 		 */
 		handler = new EnterTextFieldHandler();

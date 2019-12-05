@@ -14,11 +14,9 @@ public class FileMoverSetUp {
 		switch(fileType) {
 		case("Word"):
 			wordDocDirectory = moveDirectory;
-			System.out.println("registered word directory");
 			break;
 		case("PDF"):
 			pdfDirectory = moveDirectory;
-		System.out.println("registered pdf directory");
 			break;
 		case("Text"):
 			textFileDirectory = moveDirectory;

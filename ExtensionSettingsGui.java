@@ -20,7 +20,7 @@ import javax.swing.JButton;
 
 public class ExtensionSettingsGui {
 
-	protected JFrame frame;
+	protected JFrame frmExtensionsSetUp;
 	private JTextField wordDocButton;
 	private JTextField pdfButton;
 	private JTextField textFileButton;
@@ -30,92 +30,79 @@ public class ExtensionSettingsGui {
 	private JTextField otherFileButton;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-		      public void run() {
-				try {
-					ExtensionSettingsGui window = new ExtensionSettingsGui();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public ExtensionSettingsGui() {
 		initialize();
 	}
-
+	public JFrame getFrame() {
+		return frmExtensionsSetUp;
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmExtensionsSetUp = new JFrame();
+		frmExtensionsSetUp.setTitle("Extensions Set Up");
+		frmExtensionsSetUp.setBounds(100, 100, 450, 300);
+		frmExtensionsSetUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmExtensionsSetUp.getContentPane().setLayout(null);
 		
 		wordDocButton = new JTextField();
 		wordDocButton.setText("Word Document");
 		wordDocButton.setBounds(56, 48, 136, 22);
-		frame.getContentPane().add(wordDocButton);
+		frmExtensionsSetUp.getContentPane().add(wordDocButton);
 		wordDocButton.setColumns(10);
 		wordDocButton.addActionListener(new FileTypeSettingsListener(wordDocButton.getText()));
 		
 		pdfButton = new JTextField();
 		pdfButton.setText("PDF File");
 		pdfButton.setBounds(56, 83, 136, 22);
-		frame.getContentPane().add(pdfButton);
+		frmExtensionsSetUp.getContentPane().add(pdfButton);
 		pdfButton.setColumns(10);
 		pdfButton.addActionListener(new FileTypeSettingsListener(pdfButton.getText()));
 		
 		textFileButton = new JTextField();
 		textFileButton.setText("Text File");
 		textFileButton.setBounds(56, 118, 136, 22);
-		frame.getContentPane().add(textFileButton);
+		frmExtensionsSetUp.getContentPane().add(textFileButton);
 		textFileButton.setColumns(10);
 		textFileButton.addActionListener(new FileTypeSettingsListener(textFileButton.getText()));
 		
 		powerPointButton = new JTextField();
 		powerPointButton.setText("Powerpoint");
 		powerPointButton.setBounds(56, 154, 136, 22);
-		frame.getContentPane().add(powerPointButton);
+		frmExtensionsSetUp.getContentPane().add(powerPointButton);
 		powerPointButton.setColumns(10);
 		powerPointButton.addActionListener(new FileTypeSettingsListener(powerPointButton.getText()));
 		
 		imageButton = new JTextField();
 		imageButton.setText("JPeg,GIF,PNG(Image)");
 		imageButton.setBounds(244, 48, 136, 22);
-		frame.getContentPane().add(imageButton);
+		frmExtensionsSetUp.getContentPane().add(imageButton);
 		imageButton.setColumns(10);
 		imageButton.addActionListener(new FileTypeSettingsListener(imageButton.getText()));
 		
 		excelButton = new JTextField();
 		excelButton.setText("Excel File");
 		excelButton.setBounds(244, 83, 136, 22);
-		frame.getContentPane().add(excelButton);
+		frmExtensionsSetUp.getContentPane().add(excelButton);
 		excelButton.setColumns(10);
 		excelButton.addActionListener(new FileTypeSettingsListener(excelButton.getText()));
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(53, 153, 56, 16);
-		frame.getContentPane().add(lblNewLabel);
+		frmExtensionsSetUp.getContentPane().add(lblNewLabel);
 		
 		JLabel lblInputWhereCertain = new JLabel("Input Where Certain file types should Go");
 		lblInputWhereCertain.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblInputWhereCertain.setBounds(68, 19, 301, 16);
-		frame.getContentPane().add(lblInputWhereCertain);
+		frmExtensionsSetUp.getContentPane().add(lblInputWhereCertain);
 		
 		otherFileButton = new JTextField();
 		otherFileButton.setText("Other File Types");
 		otherFileButton.setBounds(244, 118, 136, 22);
-		frame.getContentPane().add(otherFileButton);
+		frmExtensionsSetUp.getContentPane().add(otherFileButton);
 		otherFileButton.setColumns(10);
 		otherFileButton.addActionListener(new FileTypeSettingsListener(otherFileButton.getText()));
 	}	
@@ -158,7 +145,7 @@ public class ExtensionSettingsGui {
 				JOptionPane.showMessageDialog(null, "Directory Registered Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 			}
 			catch(DirectoryNotFoundException f) {
-			
+				f.getExceptionPopUp();
 			}
 		}
 	}

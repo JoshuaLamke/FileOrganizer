@@ -1,4 +1,4 @@
-package file_organizer_gui; 
+package file_organizer_gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,7 +90,7 @@ public class ConfigFileStreamer {
 					writer.write(line);
 					break;
 				}
-				writer.write(line);
+				writer.write(line + "\n");
 			}
 			writer.close();
 			}

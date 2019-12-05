@@ -1,4 +1,4 @@
-package file_organizer_gui; 
+package file_organizer_gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,11 +22,11 @@ public class DirectoryNotFoundException extends Exception{
 	 */
 public DirectoryNotFoundException(Path p) {
 	pathName=p.toString();
-	message = "Unable to find the Directory/File named:\n\"" + pathName + "\"\nPlease check the spelling or click\nthe help button for more information.\n Exiting Gui";
+	message = "Unable to find the Directory/File named:\n\"" + pathName + "\"\nPlease check the spelling or click\nthe help button for more information\non how to register a path.";
 	popUp = new JFrame("Directory Not Found");
 	popUp.getContentPane().setBackground(Color.WHITE);
 	popUp.setBounds(500, 500, 500, 200);
-	popUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	popUp.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	popUp.getContentPane().setLayout(null);
 	
 	buttonForException = new JTextArea(message);
