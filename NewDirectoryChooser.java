@@ -13,7 +13,7 @@ public class NewDirectoryChooser{
       return FileMoverSetUp.excelDirectory;
     }
     else if ((fileType.equals("key")) || (fileType.equals("odp")) || (fileType.equals("pps")) || (fileType.equals("ppt")) || (fileType.equals("pptx"))){
-      return FileMoversetUp.powerpointDirectory;
+      return FileMoverSetUp.powerpointDirectory;
     }
     else if ((fileType.equals("ai")) || (fileType.equals("bmp")) || (fileType.equals("gif")) || (fileType.equals("ico")) || (fileType.equals("jpg")) || (fileType.equals("jpeg")) || (fileType.equals("png")) || (fileType.equals("ps")) || (fileType.equals("psd")) || (fileType.equals("svg")) || (fileType.equals("tif")) || (fileType.equals("tiff"))){
       return FileMoverSetUp.imageDirectory;
